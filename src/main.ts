@@ -12,6 +12,7 @@ async function bootstrap() {
     .setTitle('Thesis API')
     .setDescription('Email-less authentication model proposal using OAuth 2.0')
     .setVersion('1.0')
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document, {

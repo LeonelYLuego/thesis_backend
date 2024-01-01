@@ -1,6 +1,9 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AccountsModule } from './modules/accounts/accounts.module';
+import { AuthModule } from './integrations/auth/auth.module';
+import { AuthMiddleware } from './integrations/auth/auth.middleware';
 
 @Module({
   imports: [
@@ -17,8 +20,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       synchronize: process.env.DEV_MODE != 'false',
       autoLoadEntities: process.env.DEV_MODE != 'false',
     }),
+    AuthModule,
+    AccountsModule,
   ],
   controllers: [],
   providers: [],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(AuthMiddleware).forRoutes('*');
+  }
+}
