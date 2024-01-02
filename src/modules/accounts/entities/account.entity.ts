@@ -9,7 +9,9 @@ import {
 
 @Entity()
 export class Account {
-  @ApiProperty()
+  @ApiProperty({
+    pattern: '^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$'
+  })
   @PrimaryGeneratedColumn('uuid')
   id: string;
 

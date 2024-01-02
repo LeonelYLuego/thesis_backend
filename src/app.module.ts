@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AccountsModule } from './modules/accounts/accounts.module';
 import { AuthModule } from './integrations/auth/auth.module';
 import { AuthMiddleware } from './integrations/auth/auth.middleware';
+import { PagesModule } from './modules/pages/pages.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { AuthMiddleware } from './integrations/auth/auth.middleware';
     }),
     AuthModule,
     AccountsModule,
+    PagesModule,
   ],
   controllers: [],
   providers: [],
