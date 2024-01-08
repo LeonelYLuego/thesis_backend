@@ -18,8 +18,8 @@ export class AuthMiddleware implements NestMiddleware {
 
   async use(req: RequestWithAccount, res: Response, next: NextFunction) {
     if (
-      (req.originalUrl == '/auth/log-in' && req.method == 'POST') ||
-      (req.originalUrl == '/accounts' && req.method == 'POST')
+      (req.originalUrl == '/api/auth/log-in' && req.method == 'POST') ||
+      (req.originalUrl == '/api/accounts' && req.method == 'POST')
     )
       next();
     else {

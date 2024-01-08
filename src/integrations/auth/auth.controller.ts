@@ -37,7 +37,7 @@ export class AuthController {
     description: 'Checks the logged `Account` and returns it',
   })
   @ApiOkResponse({
-    type: ResponseAccountDto
+    type: ResponseAccountDto,
   })
   @ApiBearerAuth()
   async logged(): Promise<ResponseAccountDto> {
