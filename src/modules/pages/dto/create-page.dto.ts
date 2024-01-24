@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsUrl, MaxLength } from 'class-validator';
+import { IsString, Matches, MaxLength } from 'class-validator';
 
 export class CreatePageDto {
   @ApiProperty({
@@ -11,11 +11,10 @@ export class CreatePageDto {
 
   @ApiProperty({
     maxLength: 32,
-    pattern:
-      '^[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)$',
+    pattern: '^www\\.[a-zA-Z0-9_-]+(\\.[a-zA-Z]{2,})+$',
   })
   @IsString()
   @MaxLength(32)
-  @IsUrl()
+  @Matches(/^www\.[a-zA-Z0-9_-]+(\.[a-zA-Z]{2,})+$/)
   url: string;
 }

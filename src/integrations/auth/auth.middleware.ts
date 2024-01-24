@@ -19,7 +19,9 @@ export class AuthMiddleware implements NestMiddleware {
   async use(req: RequestWithAccount, res: Response, next: NextFunction) {
     if (
       (req.originalUrl == '/api/auth/log-in' && req.method == 'POST') ||
-      (req.originalUrl == '/api/accounts' && req.method == 'POST')
+      (req.originalUrl == '/api/accounts' && req.method == 'POST') ||
+      (/^\/api\/pages\/[0-9A-F]{32,32}$/.test(req.originalUrl) &&
+        req.method == 'GET')
     )
       next();
     else {

@@ -11,6 +11,8 @@ import { ResponseLogInDto } from './dto/response-log-in.dto';
 import { LogInDto } from './dto/log-in.dto';
 import { AuthService } from './auth.service';
 import { ResponseAccountDto } from '@accounts/dto/response-account.dto';
+import { CurrentAccount } from './auth.decorator';
+import { Account } from '@accounts/entities/account.entity';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -40,7 +42,9 @@ export class AuthController {
     type: ResponseAccountDto,
   })
   @ApiBearerAuth()
-  async logged(): Promise<ResponseAccountDto> {
-    return;
+  async logged(
+    @CurrentAccount() currentAccount: Account,
+  ): Promise<ResponseAccountDto> {
+    return currentAccount;
   }
 }

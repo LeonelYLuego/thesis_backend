@@ -32,5 +32,17 @@ export class Page {
   @Column({
     length: 32,
   })
+  publicKey: string;
+
+  @ApiProperty()
+  @Column({
+    length: 32,
+  })
+  privateKey: string;
+
+  @ApiProperty()
+  @Column({
+    length: 32,
+  })
   url: string;
 }

@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Delete,
+  Param,
+} from '@nestjs/common';
 import { PagesService } from './pages.service';
 import { CreatePageDto } from './dto/create-page.dto';
 import {
@@ -8,6 +16,7 @@ import {
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiOperation,
+  ApiParam,
   ApiTags,
 } from '@nestjs/swagger';
 import { Page } from './entities/page.entity';
@@ -28,7 +37,7 @@ export class PagesController {
     type: Page,
   })
   @ApiBadRequestResponse({
-    description: 'account already with page',
+    description: 'account already with page, url already exist',
   })
   @ApiBearerAuth()
   async create(
@@ -59,6 +68,24 @@ export class PagesController {
     return await this.pagesService.findOne(currentAccount);
   }
 
+  @Get(':publicKey')
+  @ApiOperation({
+    summary: 'Find Page by Public Key',
+    description: 'Finds Page by Public Key',
+  })
+  @ApiParam({
+    name: 'publicKey',
+    type: String,
+  })
+  @ApiNotFoundResponse({
+    description: 'page not found',
+  })
+  async findOneByPublicKey(
+    @Param('publicKey') publicKey: string,
+  ): Promise<Page> {
+    return await this.pagesService.findOneByPublicKey(publicKey);
+  }
+
   // @Patch('')
   // update(@Param('id') id: string, @Body() updatePageDto: UpdatePageDto) {
   //   return this.pagesService.update(+id, updatePageDto);
@@ -75,6 +102,6 @@ export class PagesController {
   })
   @ApiBearerAuth()
   async remove(@CurrentAccount() currentAccount: Account): Promise<void> {
-    await this.remove(currentAccount);
+    await this.pagesService.remove(currentAccount);
   }
 }

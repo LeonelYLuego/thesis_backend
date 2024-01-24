@@ -15,8 +15,21 @@ export class PagesService {
     @InjectRepository(Page) private pagesRepository: Repository<Page>,
   ) {}
 
+  private generateKey(): string {
+    const characters = '0123456789ABCDEF';
+    let result = '';
+
+    for (let i = 0; i < 32; i++) {
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      result += characters.charAt(randomIndex);
+    }
+
+    return result;
+  }
+
   /**
    * @throws {BadRequestException} account already with page
+   * @throws {BadRequestException} url already exist
    */
   async create(
     createPageDto: CreatePageDto,
@@ -29,8 +42,17 @@ export class PagesService {
     )
       throw new BadRequestException('account already with page');
 
-    const page = await this.pagesRepository.save({
+    if (
+      await this.pagesRepository.findOne({
+        where: { url: createPageDto.url },
+      })
+    )
+      throw new BadRequestException('url already exist');
+
+    await this.pagesRepository.save({
       account: currentAccount,
+      publicKey: this.generateKey(),
+      privateKey: this.generateKey(),
       ...createPageDto,
     });
 
@@ -47,6 +69,22 @@ export class PagesService {
   async findOne(currentAccount: Account): Promise<Page> {
     const page = await this.pagesRepository.findOne({
       where: { account: { id: currentAccount.id } },
+    });
+    if (page) return page;
+    throw new NotFoundException('page not found');
+  }
+
+  /**
+   * @throws {NotFoundException} page not found
+   */
+  async findOneByPublicKey(publicKey: string): Promise<Page> {
+    const page = await this.pagesRepository.findOne({
+      where: { publicKey },
+      select: {
+        id: true,
+        name: true,
+        url: true,
+      },
     });
     if (page) return page;
     throw new NotFoundException('page not found');
