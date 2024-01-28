@@ -9,6 +9,7 @@ import { Account } from './entities/account.entity';
 import { FindOneOptions, Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { UpdateAccountDto } from './dto/update-account.dto';
+import { Page } from '../pages/entities/page.entity';
 
 @Injectable()
 export class AccountsService {
@@ -78,5 +79,43 @@ export class AccountsService {
   async remove(id: string): Promise<void> {
     await this.findOne(id);
     await this.accountsRepository.delete({ id });
+  }
+
+  async checkIfPageRegistered(
+    pageId: string,
+    currentAccount: Account,
+  ): Promise<boolean> {
+    return !!(await this.accountsRepository.findOne({
+      where: { id: currentAccount.id, pages: { id: pageId } },
+    }));
+  }
+
+  async registerPage(page: Page, currentAccount: Account): Promise<void> {
+    const account = await this.accountsRepository.findOne({
+      where: { id: currentAccount.id },
+      relations: { pages: true },
+    });
+    account.pages.push(page);
+    await this.accountsRepository.save(account);
+  }
+
+  async findPages(currentAccount: Account): Promise<Page[]> {
+    const account = await this.accountsRepository.findOne({
+      relations: {
+        pages: true,
+      },
+      select: {
+        pages: {
+          id: true,
+          name: true,
+          url: true,
+        },
+      },
+      where: {
+        id: currentAccount.id,
+      },
+    });
+
+    return account.pages;
   }
 }

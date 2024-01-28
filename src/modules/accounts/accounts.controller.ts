@@ -24,6 +24,7 @@ import {
 import { ResponseAccountDto } from './dto/response-account.dto';
 import { CurrentAccount } from 'src/integrations/auth/auth.decorator';
 import { Account } from './entities/account.entity';
+import { Page } from '../pages/entities/page.entity';
 
 @ApiTags('Accounts')
 @Controller('accounts')
@@ -59,6 +60,45 @@ export class AccountsController {
   // async findAll(): Promise<ResponseAccountDto[]> {
   //   return await this.accountsService.findAll();
   // }
+
+  @Get('pages')
+  @ApiOperation({
+    summary: 'Find all Pages',
+    description: 'Finds all `Pages`',
+  })
+  @ApiOkResponse({
+    type: [Page],
+  })
+  @ApiBearerAuth()
+  async findPages(@CurrentAccount() currentAccount: Account): Promise<Page[]> {
+    return await this.accountsService.findPages(currentAccount);
+  }
+
+  @Get('pages/:pageId')
+  @ApiOperation({
+    summary: 'Check if page already was accepted',
+    description: 'Checks if page already was accepted',
+  })
+  @ApiParam({
+    name: 'pageId',
+    type: String,
+  })
+  @ApiOkResponse({
+    type: Boolean,
+  })
+  @ApiNotFoundResponse({
+    description: 'page not found',
+  })
+  @ApiBearerAuth()
+  async checkPageRegistered(
+    @Param('pageId') pageId: string,
+    @CurrentAccount() currentAccount: Account,
+  ): Promise<boolean> {
+    return await this.accountsService.checkIfPageRegistered(
+      pageId,
+      currentAccount,
+    );
+  }
 
   @Get(':id')
   @ApiOperation({

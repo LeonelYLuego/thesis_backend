@@ -8,11 +8,15 @@ import { Account } from '@accounts/entities/account.entity';
 import { Page } from './entities/page.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { ResponseAcceptDto } from './dto/response-accept.dto';
+import { AccountsService } from '@accounts/accounts.service';
+import * as CryptoJS from 'crypto-js';
 
 @Injectable()
 export class PagesService {
   constructor(
     @InjectRepository(Page) private pagesRepository: Repository<Page>,
+    private accountsService: AccountsService,
   ) {}
 
   private generateKey(): string {
@@ -57,6 +61,43 @@ export class PagesService {
     });
 
     return await this.findOne(currentAccount);
+  }
+
+  /**
+   * @throws {NotFoundException} page not found
+   */
+  async accept(
+    id: string,
+    currentAccount: Account,
+  ): Promise<ResponseAcceptDto> {
+    const page = await this.pagesRepository.findOne({
+      where: { id },
+    });
+    if (!page) throw new NotFoundException('page not found');
+    if (
+      !(await this.accountsService.checkIfPageRegistered(
+        page.id,
+        currentAccount,
+      ))
+    )
+      await this.accountsService.registerPage(page, currentAccount);
+
+    //Encrypt
+    return {
+      value: CryptoJS.AES.encrypt(
+        JSON.stringify({
+          id: currentAccount.id,
+          firstName: currentAccount.firstName,
+          lastName: currentAccount.lastName,
+          username: currentAccount.username,
+        }),
+        CryptoJS.enc.Utf8.parse(page.privateKey),
+        {
+          mode: CryptoJS.mode.ECB,
+          padding: CryptoJS.pad.Pkcs7,
+        },
+      ).toString(),
+    };
   }
 
   // findAll() {

@@ -22,6 +22,7 @@ import {
 import { Page } from './entities/page.entity';
 import { CurrentAccount } from 'src/integrations/auth/auth.decorator';
 import { Account } from '@accounts/entities/account.entity';
+import { ResponseAcceptDto } from './dto/response-accept.dto';
 
 @ApiTags('Pages')
 @Controller('pages')
@@ -47,10 +48,25 @@ export class PagesController {
     return await this.pagesService.create(createPageDto, currentAccount);
   }
 
-  // @Get()
-  // findAll() {
-  //   return this.pagesService.findAll();
-  // }
+  @Get(':id/accept')
+  @ApiOperation({
+    summary: 'Accept OAuth',
+    description: 'Accepts OAuth',
+  })
+  @ApiParam({ name: 'id', type: String })
+  @ApiCreatedResponse({
+    type: ResponseAcceptDto,
+  })
+  @ApiNotFoundResponse({
+    description: 'page not found',
+  })
+  @ApiBearerAuth()
+  async accept(
+    @Param('id') id: string,
+    @CurrentAccount() currentAccount: Account,
+  ): Promise<ResponseAcceptDto> {
+    return await this.pagesService.accept(id, currentAccount);
+  }
 
   @Get()
   @ApiOperation({

@@ -1,16 +1,19 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Page } from 'src/modules/pages/entities/page.entity';
 import {
   Column,
   Entity,
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  ManyToMany,
+  JoinTable,
 } from 'typeorm';
 
 @Entity()
 export class Account {
   @ApiProperty({
-    pattern: '^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$'
+    pattern: '^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$',
   })
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -56,4 +59,9 @@ export class Account {
     length: 10,
   })
   phone: string;
+
+  @ApiProperty({ type: [Page] })
+  @ManyToMany(() => Page)
+  @JoinTable()
+  pages: Page[];
 }
