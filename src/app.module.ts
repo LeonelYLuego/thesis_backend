@@ -1,6 +1,8 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 import { AccountsModule } from './modules/accounts/accounts.module';
 import { AuthModule } from './integrations/auth/auth.module';
 import { AuthMiddleware } from './integrations/auth/auth.middleware';
@@ -20,6 +22,9 @@ import { PagesModule } from './modules/pages/pages.module';
       database: process.env.DB_DATABASE,
       synchronize: process.env.DEV_MODE != 'false',
       autoLoadEntities: process.env.DEV_MODE != 'false',
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, process.env.PUBLIC_PATH),
     }),
     AuthModule,
     AccountsModule,

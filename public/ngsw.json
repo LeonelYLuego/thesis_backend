@@ -1,0 +1,107 @@
+{
+  "configVersion": 1,
+  "timestamp": 1707180989289,
+  "index": "/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/chunk-7TJT32UP.js",
+        "/chunk-BTF3FD7C.js",
+        "/chunk-HPMRRGRH.js",
+        "/chunk-PGIIE6UT.js",
+        "/chunk-PXZJHLGB.js",
+        "/chunk-TDYCN72H.js",
+        "/chunk-TTSPFW42.js",
+        "/chunk-XGZPP6NI.js",
+        "/chunk-XU552XJ7.js",
+        "/chunk-ZD5KF6KB.js",
+        "/favicon.ico",
+        "/index.html",
+        "/main-J3O7IGCG.js",
+        "/manifest.webmanifest",
+        "/polyfills-LZBJRJJE.js",
+        "/styles-CQKA33NH.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "lazy",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/assets/icons/icon-128x128.png",
+        "/assets/icons/icon-144x144.png",
+        "/assets/icons/icon-152x152.png",
+        "/assets/icons/icon-192x192.png",
+        "/assets/icons/icon-384x384.png",
+        "/assets/icons/icon-512x512.png",
+        "/assets/icons/icon-72x72.png",
+        "/assets/icons/icon-96x96.png",
+        "/assets/images/environment.svg",
+        "/assets/images/login.svg",
+        "/assets/images/not-found.svg",
+        "/assets/images/security.svg"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "/assets/icons/icon-128x128.png": "f912963bdc6d5a38d8f1dd0afbaab2ce8d657acb",
+    "/assets/icons/icon-144x144.png": "b155fd5f2fd5d2ea7760721063003c4cd95fd783",
+    "/assets/icons/icon-152x152.png": "eae6e0f0c8afb8aaae339e2a569b43e9238e5e6c",
+    "/assets/icons/icon-192x192.png": "15c4180454633880d98674aa7394656196c91584",
+    "/assets/icons/icon-384x384.png": "94a915751ef6c9282df9aea405ad679230631814",
+    "/assets/icons/icon-512x512.png": "1de182f76f7329dfa8f9fcdd1fdcdd695bea6a99",
+    "/assets/icons/icon-72x72.png": "aa88a6096bd973be7f6d7a5489bfa6bc2463f8c4",
+    "/assets/icons/icon-96x96.png": "7fb8f59c30ce2ff12c700321a0b39e14b3dc8f95",
+    "/assets/images/environment.svg": "8d416c7f3db879f3634a9aa3185a03d74956bdbe",
+    "/assets/images/login.svg": "bb48d02c6512177bfe0a0f3e5ffa303feb0e8fcc",
+    "/assets/images/not-found.svg": "6bd08b258575a92e9b3852c49cd93c829a097de3",
+    "/assets/images/security.svg": "581741426bd7f2c724c0f0686717de746381e059",
+    "/chunk-7TJT32UP.js": "21e893184cfa9c8117af3b5468e6b1c7f1ee0c6d",
+    "/chunk-BTF3FD7C.js": "5aa7a9e88d4b63f60e0bc151d6a600059e8e9c54",
+    "/chunk-HPMRRGRH.js": "c6685a3ccadf26b0ffcbcca1d96f56b32dac39cf",
+    "/chunk-PGIIE6UT.js": "fe6145e28ff4d546862a795fb4e429902dc9a372",
+    "/chunk-PXZJHLGB.js": "a5a350c1a308906fdff751f08ad8fbbe7c8f02ea",
+    "/chunk-TDYCN72H.js": "3f79d826873aec35fca48a47bc7c87339ae3541d",
+    "/chunk-TTSPFW42.js": "3e89f85c3cc7dfe1128cd3fdad5df9b560218d93",
+    "/chunk-XGZPP6NI.js": "a38d916b185ec62b771ed74ec780d4ec00a43735",
+    "/chunk-XU552XJ7.js": "8e62c6f9f1b8b1e6ff499c630d0939d35a7c46c4",
+    "/chunk-ZD5KF6KB.js": "6cd417e123fd0219bb9614f6f0e028d3dc6fba1d",
+    "/favicon.ico": "9c39f434fe1261f68c5e3eefdf734630d99c5670",
+    "/index.html": "33e1f16ead946c5ab026d66f4cdaba63fd5e893e",
+    "/main-J3O7IGCG.js": "4ce1e8b94377cba6309e4a212ce405505d8d08a9",
+    "/manifest.webmanifest": "c757af74e66698ac63f4e2bed868927167355808",
+    "/polyfills-LZBJRJJE.js": "fda1c82c5c620f1fa442f687b3df45a037f6fcc9",
+    "/styles-CQKA33NH.css": "f32696604f53cc1a5b7588c93de9272374f52d04"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ],
+  "navigationRequestStrategy": "performance"
+}
