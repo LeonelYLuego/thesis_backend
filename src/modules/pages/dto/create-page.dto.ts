@@ -11,10 +11,10 @@ export class CreatePageDto {
 
   @ApiProperty({
     maxLength: 32,
-    pattern: '^www\\.[a-zA-Z0-9_-]+(\\.[a-zA-Z]{2,})+$',
+    pattern: '^[a-zA-Z0-9_-]+(\\.[a-zA-Z]{2,})+$',
   })
   @IsString()
   @MaxLength(32)
-  @Matches(/^www\.[a-zA-Z0-9_-]+(\.[a-zA-Z]{2,})+$/)
+  @Matches(/^[a-zA-Z0-9_-]+(\.[a-zA-Z]{2,})+$/)
   url: string;
 }
